@@ -10,6 +10,7 @@ let initWebRoutes = (app) => {
     router.get('/get-crud', homeController.listCrud);
     router.get('/edit-crud', homeController.editCrud);
     router.post('/put-crud', homeController.putCrud);
+    router.get('/delete-crud', homeController.deleteCrud);
     return app.use("/", router);
 }
 
