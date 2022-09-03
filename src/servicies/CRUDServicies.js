@@ -50,7 +50,50 @@ let getAllUsers = async()=>{
         }
     })
 }
+let getUserId = async (userId)=>{
+    return new Promise(async(resolve, reject) => {
+        try {
+            let user = await db.Users.findOne({
+              where: {id: userId},
+              raw: true
+            })
+           if(user) {
+            resolve(user)
+           }
+           else {
+            resolve([])
+           }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+let updeuserCrud= async(data)=>{
+    return new Promise(async(resolve, reject) => {
+        try {
+            let user = await db.Users.findOne({
+              where: {id: data.id},
+            
+            })
+           if(user) {
+            user.lastName= data.lastName,
+            user.firstName= data.firstName,
+            user.address= data.address
+            await user.save()
+            let allusers = await db.Users.findAll()
+            resolve(allusers)
+           }
+           else {
+            resolve()
+           }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     createdNewUser: createdNewUser,
-    getAllUsers:getAllUsers
+    getAllUsers:getAllUsers,
+    getUserId:getUserId,
+    updeuserCrud:updeuserCrud
 }

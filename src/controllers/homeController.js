@@ -25,9 +25,31 @@ let postCrud =  async(req, res) => {
 }
 let listCrud =  async(req, res) => {
     let data = await CRUDServicies.getAllUsers()
-    console.log(data)
+    // console.log(data)
    return res.render('listcrud.ejs',{
     dataTable: data
+   })
+ }
+ let editCrud = async(req, res) => {
+  let userId = req.query.id
+  console.log(userId)
+  if (userId) {
+    let userData  =await CRUDServicies.getUserId(userId)
+   
+    return res.render('editcrude.ejs',{
+        user:userData
+    });
+  }
+  else{
+    return res.send('Not po');
+  }
+    
+ }
+ let putCrud =async (req, res)=>{
+    let data = req.body
+  let allusers = await CRUDServicies.updeuserCrud(data)
+  return res.render('listcrud.ejs',{
+    dataTable: allusers
    })
  }
 // object: {
@@ -38,5 +60,7 @@ module.exports = {
     getHomePage: getHomePage,
     getAboutPage: getAboutPage,
     postCrud:postCrud,
-    listCrud:listCrud
+    listCrud:listCrud,
+    editCrud:editCrud,
+    putCrud:putCrud
 }
