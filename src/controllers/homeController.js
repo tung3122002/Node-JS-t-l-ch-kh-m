@@ -18,11 +18,18 @@ let getHomePage = async (req, res) => {
 let getAboutPage = (req, res) => {
     return res.render('test/about.ejs');
 }
-let postAbout =  async(req, res) => {
+let postCrud =  async(req, res) => {
    let message = await CRUDServicies.createdNewUser(req.body)
   console.log(message)
     return res.send('aaaaaaaaaaa');
 }
+let listCrud =  async(req, res) => {
+    let data = await CRUDServicies.getAllUsers()
+    console.log(data)
+   return res.render('listcrud.ejs',{
+    dataTable: data
+   })
+ }
 // object: {
 //     key: '',
 //     value: ''
@@ -30,5 +37,6 @@ let postAbout =  async(req, res) => {
 module.exports = {
     getHomePage: getHomePage,
     getAboutPage: getAboutPage,
-    postAbout:postAbout
+    postCrud:postCrud,
+    listCrud:listCrud
 }

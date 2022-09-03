@@ -24,10 +24,7 @@ let createdNewUser =async (data) => {
         }
          
      })
-    // let hashPasswordFromPassword= await hashUserPassword(data.password);
-    // console.log('data form servicies')
-    // console.log(data)
-    // console.log(hashPasswordFromPassword)
+   
 }
 let hashUserPassword = (password) => {
     return new Promise(async(resolve, reject) => {
@@ -41,6 +38,19 @@ let hashUserPassword = (password) => {
         
     })
 }
+let getAllUsers = async()=>{
+    return new Promise(async(resolve, reject) => {
+        try {
+            let users = db.Users.findAll({
+                raw: true
+            })
+            resolve(users)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
-    createdNewUser: createdNewUser
+    createdNewUser: createdNewUser,
+    getAllUsers:getAllUsers
 }
